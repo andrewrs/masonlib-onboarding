@@ -1,0 +1,7 @@
+ex81.hello_form:
+  path: '/exp/onform2'
+  defaults:
+    _form: 'Drupal\onform\Form\OnForm'
+    _title: 'Mason Onboarding2'
+  requirements:
+    _permission: 'access content'
