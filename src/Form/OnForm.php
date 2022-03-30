@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\onform\Form;
+namespace Drupal\ex81\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -202,9 +202,6 @@ $form['almaaccounts']['acl_staff'] = array(
 
  
    
-
-   
-
   }
 
   /**
@@ -217,64 +214,43 @@ $form['almaaccounts']['acl_staff'] = array(
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
+  
+  
+$almarr = array_keys($form['almaaccounts']);
+$almlists = "";
+  foreach ($almarr as &$value) {
+    if ($form_state->getValue($value) ==1) {
+    $almlists = $almlists . "\n - " . $form['almaaccounts'][$value]['#title'];
+    }
+  }
+
+$webmarr = array_keys($form['webaccounts']);
+$webaccnts = "";
+  foreach ($webmarr as &$value) {
+    if ($form_state->getValue($value) ==1) {
+    $webaccnts = $webaccnts . "\n - " . $form['webaccounts'][$value]['#title'];
+    }
+  }
+  
+$elistmarr = array_keys($form['lists']);
+$elists = "";
+  foreach ($elistmarr as &$value) {
+    if ($form_state->getValue($value) ==1) {
+    $elists = $elists . "\n - " . $form['lists'][$value]['#title'];
+    }
+  }
+  
+ 
+
+  
     // Display the results
     // Call the Static Service Container wrapper
     // We should inject the messenger service, but its beyond the scope
     // of this example.
     $messenger = \Drupal::messenger();
- $messenger->addMessage('Submitted request for ' . $form_state->getValue('person_name'));
+ $messenger->addMessage('Submitted request for ' . $form_state->getValue('person_name') );
 
 
-$almlists = "";
-
-if ($form_state->getValue('acquisitions') ==1) {
-$almlists = $almlists . "\n - Acquisitions Operator";
-}
-if ($form_state->getValue('cataloger') ==1) {
-$almlists = $almlists . "\n - Cataloger";
-}
-if ($form_state->getValue('reserves') ==1) {
-$almlists = $almlists . "\n - Reserves";
-}
-if ($form_state->getValue('mercer_staff') ==1) {
-$almlists = $almlists . "\n - Mercer Staff";
-}
-if ($form_state->getValue('acl_staff') ==1) {
-$almlists = $almlists . "\n - ACL Staff";
-}
-
-
-$webaccnts = "";
-if ($form_state->getValue('intranet') ==1) {
-$webaccnts = $webaccnts . "\n - Intranet";
-}
-if ($form_state->getValue('libapps') ==1) {
-$webaccnts = $webaccnts . "\n - LibApps";
-}
-if ($form_state->getValue('web_profile') ==1) {
-$webaccnts = $webaccnts . "\n - Fac/Staff Web Profile";
-}
-
-
-
-
-$elists = "";
-
-if ($form_state->getValue('allstaff') ==1) {
-$elists = $elists . "\n - All Staff";
-}
-if ($form_state->getValue('sub_libs') ==1) {
-$elists = $elists . "\n - Subject Librarians";
-}
-if ($form_state->getValue('libstaff') ==1) {
-$elists = $elists . "\n - Library Staff";
-}
-if ($form_state->getValue('virtual') ==1) {
-$elists = $elists . "\n - Virtual Reference";
-}
-if ($form_state->getValue('libcouncil') ==1) {
-$elists = $elists . "\n - Librarians Council";
-}
 
 if ($almlists != '') {
 
